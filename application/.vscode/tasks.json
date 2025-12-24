@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build App",
+        "type": "shell",
+        "command": "make -j4",
+        "group": {"kind": "build", "isDefault": true},
+        "problemMatcher": ["$gcc"]
+      },
+      {
+        "label": "Clean App",
+        "type": "shell",
+        "command": "make clean"
+      },
+      {
+        "label": "Flash App via SWD",
+        "type": "shell",
+        "command": "STM32_Programmer_CLI",
+        "args": [
+          "-c", "port=SWD",
+          "-d", "build/app.bin", "0x08020000",
+          "-v",
+          "-rst"
+        ]
+      },      
+      {
+        "label": "Flash App via DFU",
+        "type": "shell",
+        "command": "dfu-util",
+        "args": ["-a", "0", "-D", "build/app.bin", "-s", "0x08020000"]
+      }
+    ]
+  }
+  
